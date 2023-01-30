@@ -8,16 +8,16 @@ import ImageViewer from './components/ImageViewer';
 import Button from './components/Button';
 import CircleButton from './components/CircleButton';
 import IconButton from './components/IconButton';
+import EmojiPicker from './components/EmojiPicker';
+import EmojiList from './components/EmojiList';
 
 const PlaceholderImage = require('./assets/images/background-image.png');
 
 export default function App() {
   const [showAppOptions, setShowAppOptions] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
-  const onReset = () => {
-    setShowAppOptions(false);
-  };
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [pickedEmoji, setPickedEmoji] = useState(null);
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -34,6 +34,23 @@ export default function App() {
     }
   };
 
+  const onReset = () => {
+    setShowAppOptions(false);
+  };
+
+  const onAddSticker = () => {
+    setIsModalVisible(true);
+    // TODO Later
+  };
+
+  const onSaveImageAsync = async () => {
+    // TODO Later
+  };
+
+  const onModalClose = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -44,9 +61,9 @@ export default function App() {
       </View>
       {showAppOptions ? (
         <View style={styles.containerRow}>
-          <IconButton icon='rotate-left' label='reset' />
-          <CircleButton icon='plus' />
-          <IconButton icon='download' label='reset' />
+          <IconButton icon='rotate-left' label='reset' onPress={onReset} />
+          <CircleButton icon='plus' onPress={onAddSticker} />
+          <IconButton icon='download' label='save' onPress={onSaveImageAsync} />
         </View>
       ) : (
         <View style={styles.footerContainer}>
@@ -61,7 +78,9 @@ export default function App() {
           />
         </View>
       )}
-
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+      </EmojiPicker>
       <StatusBar style='auto' />
     </View>
   );
