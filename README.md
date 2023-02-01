@@ -1,8 +1,9 @@
 StickerBash is a React Native app that allows you to take a photo or select one from your camera roll, add a sticker to it and save it to your device.
 
 #### Features
-- Take a photo or select one from your camera roll
+- Select a photo from your camera roll
 - Choose from a variety of stickers to add to your photo
+- Resize and position your sticker
 - Save your newly edited photo to your device
 
 #### Requirements
